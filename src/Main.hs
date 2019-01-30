@@ -52,3 +52,6 @@ main = do
   let i = circleImage (normalise 511) 511
   BL.writeFile "normal.ppm" . encodePPM . clampImage $ i
   BL.writeFile "normal.pfm" . encode . revColour $ i
+  let r = circleImage (reflect 511 (Vec (0, 0, 1))) 511
+  BL.writeFile "reflect.ppm" . encodePPM . clampImage $ r
+  BL.writeFile "reflect.pfm" . encode . revColour $ r

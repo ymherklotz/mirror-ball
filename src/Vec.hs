@@ -18,6 +18,14 @@ newtype Vec a = Vec { unVec :: (a, a, a) }
 instance Functor Vec where
   fmap f (Vec (a, b, c)) = Vec (f a, f b, f c)
 
+instance (Num a) => Num (Vec a) where
+  (Vec (x1, y1, z1)) + (Vec (x2, y2, z2)) = Vec (x1 + x2, y1 + y2, z1 + z2)
+  (Vec (x1, y1, z1)) - (Vec (x2, y2, z2)) = Vec (x1 - x2, y1 - y2, z1 - z2)
+  (Vec (x1, y1, z1)) * (Vec (x2, y2, z2)) = Vec (x1 * x2, y1 * y2, z1 * z2)
+  abs = fmap abs
+  signum = fmap signum
+  fromInteger i = Vec (fromInteger i, 0, 0)
+
 findZ :: (Floating a) => a -> a -> Vec a
 findZ x y =
   Vec (x, y, sqrt (1 - x^^2 - y^^2))
@@ -34,6 +42,7 @@ normalise size (y, x) =
 
 reflect :: (Floating a) => Int -> Vec a -> (Int, Int) -> Vec a
 reflect size v (y, x) =
-  n
+  l - v
   where
     n = normalise size (y, x)
+    l = ((2 * dot n v)*) <$> n
