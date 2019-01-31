@@ -26,6 +26,12 @@ instance (Num a) => Num (Vec a) where
   signum = fmap signum
   fromInteger i = Vec (fromInteger i, 0, 0)
 
+newtype Sph a = Sph { unSph :: (a, a) }
+              deriving (Show)
+
+instance Functor Sph where
+  fmap f (Sph (a, b)) = Sph (f a, f b)
+
 findZ :: (Floating a) => a -> a -> Vec a
 findZ x y =
   Vec (x, y, sqrt (1 - x^^2 - y^^2))
@@ -46,3 +52,20 @@ reflect size v (y, x) =
   where
     n = normalise size (y, x)
     l = ((2 * dot n v)*) <$> n
+
+toSpherical :: (Floating a, Eq a, Ord a) => Vec a -> Sph a
+toSpherical (Vec (x, y, z))
+  | z == 0 && x >= 0 =
+    Sph (acos y, pi / 2)
+  | z == 0 =
+    Sph (acos y, - pi / 2)
+  | z < 0 =
+    Sph (acos y, signum x * pi + atan (x / z))
+  | otherwise =
+    Sph (acos y, atan (x / z))
+
+indexLatLong :: (RealFrac a, Floating a) => Int -> Int -> Sph a -> (Int, Int)
+indexLatLong w h (Sph (theta, phi)) =
+  ( floor $ theta / pi * fromIntegral h
+  , floor $ ((phi / (2 * pi)) + 0.5) * fromIntegral w
+  )
