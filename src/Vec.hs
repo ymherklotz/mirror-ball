@@ -32,21 +32,24 @@ newtype Sph a = Sph { unSph :: (a, a) }
 instance Functor Sph where
   fmap f (Sph (a, b)) = Sph (f a, f b)
 
-findZ :: (Floating a) => a -> a -> Vec a
+findZ :: (RealFloat a) => a -> a -> Vec a
 findZ x y =
-  Vec (x, y, sqrt (1 - x**2 - y**2))
+  Vec (x, y, z)
+  where
+    sq = sqrt (1 - x**2 - y**2)
+    z = if isNaN sq then 0 else sq
 
 dot :: (Num a) => Vec a -> Vec a -> a
 dot (Vec (x1, y1, z1)) (Vec (x2, y2, z2)) =
   x1 * x2 + y1 * y2 + z1 * z2
 
-normalise :: (Floating a) => Int -> (Int, Int) -> Vec a
+normalise :: (RealFloat a) => Int -> (Int, Int) -> Vec a
 normalise size (y, x) =
   findZ (scale x) $ scale y
   where
     scale a = 2 * fromIntegral a / fromIntegral size - 1
 
-reflect :: (Floating a) => Int -> Vec a -> (Int, Int) -> Vec a
+reflect :: (RealFloat a) => Int -> Vec a -> (Int, Int) -> Vec a
 reflect size v (y, x) =
   l - v
   where
