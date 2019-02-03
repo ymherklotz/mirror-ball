@@ -34,7 +34,7 @@ instance Functor Sph where
 
 findZ :: (Floating a) => a -> a -> Vec a
 findZ x y =
-  Vec (x, y, sqrt (1 - x^^2 - y^^2))
+  Vec (x, y, sqrt (1 - x**2 - y**2))
 
 dot :: (Num a) => Vec a -> Vec a -> a
 dot (Vec (x1, y1, z1)) (Vec (x2, y2, z2)) =
@@ -59,8 +59,10 @@ toSpherical (Vec (x, y, z))
     Sph (acos y, pi / 2)
   | z == 0 =
     Sph (acos y, - pi / 2)
+  | z < 0 && x >= 0 =
+    Sph (acos y, pi + atan (x / z))
   | z < 0 =
-    Sph (acos y, signum x * pi + atan (x / z))
+    Sph (acos y, - pi + atan (x / z))
   | otherwise =
     Sph (acos y, atan (x / z))
 
