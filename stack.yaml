@@ -38,7 +38,7 @@ packages:
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
 extra-deps:
-- git: git@github.com:ymherklotz/pfm.git
+- git: https://github.com/ymherklotz/pfm.git
   commit: c0118f29bcfc1fb7cf61da7260e4fdc2283be241
 
 # Override default flag values for local packages and extra-deps
