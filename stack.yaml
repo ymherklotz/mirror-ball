@@ -39,7 +39,7 @@ packages:
 # (e.g., acme-missiles-0.3)
 extra-deps:
 - git: https://github.com/ymherklotz/pfm.git
-  commit: 733de0cfaac119c0e1a309014a1da4a3aeaad01d
+  commit: 8f5147d0bf8fefff89d880288053b2d1b13de849
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

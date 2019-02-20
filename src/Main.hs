@@ -48,10 +48,6 @@ circleImage :: ((Int, Int) -> PFMColour) -> Int -> PFMImage
 circleImage f s = PFMImage s s $ toCircle f ((s - 1) `div` 2)
   [ [ (y, x) | x <- [0..s-1] ] | y <- reverse [0..s-1] ]
 
-revColour :: PFMImage -> PFMImage
-revColour (PFMImage w h i) =
-  PFMImage w h $ reverse i
-
 bench :: IO ()
 bench = do
   im <- B.readFile "data/urbanEM_latlong.pfm"
@@ -76,9 +72,6 @@ applyGamma g (PFMImage w h c) =
 fromImageF :: (Int, Int) -> PFMImage -> PFMColour
 fromImageF (y, x) (PFMImage w h c) =
   c !! y !! x
-
-gamma :: (Floating a) => a -> a -> a
-gamma g m = m ** (1 / g)
 
 myForkIO :: IO () -> IO (MVar ())
 myForkIO io = do
