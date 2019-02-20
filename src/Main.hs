@@ -9,7 +9,6 @@ import qualified Data.Text            as T
 import           Data.Word            (Word8)
 import           PFM
 import           System.Directory     (createDirectoryIfMissing)
-import           Vec
 
 clamp :: PFMColour -> PPMColour
 clamp (PFMColour ri gi bi) =
