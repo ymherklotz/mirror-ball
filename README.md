@@ -10,6 +10,17 @@ mapping the spherical coordinates to a rectangle.
 
 ![latlong map](/data/urbanEM_latlong.png)
 
+The first step is to calculate the normals at every pixel using the position and
+size of the sphere. These can be visualised by setting the RGB to the XYZ of the
+normal at the pixel.
+
+![normal map](/data/normal.png)
+
+The reflection vector can then be calculated and visualised in the same way, by
+using the following formula: `r = 2 (n . v) n - v`.
+
+![reflection map](/data/reflect.png)
+
 ## Building and run
 
 To compile and run, one has to first download
