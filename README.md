@@ -21,6 +21,12 @@ using the following formula: `r = 2 (n . v) n - v`.
 
 ![reflection map](/data/reflect.png)
 
+The reflection vector can be converted to spherical coordinates, which can in
+turn be used to index into the lat-long map. The colour at the indexed pixel is
+then set to the position that has that normal.
+
+![final](/data/final.png)
+
 ## Building and run
 
 To compile and run, one has to first download
